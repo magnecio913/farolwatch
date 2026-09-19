@@ -1,0 +1,171 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type SensorView = 
+ record {
+   farolId: opt FarolId;
+   id: SensorId;
+   lastReadingAt: opt Timestamp;
+   lastValue: opt float64;
+   maxValue: float64;
+   minValue: float64;
+   name: text;
+   qrCode: text;
+   sensorType: SensorType;
+   status: SensorStatus;
+   unit: text;
+ };
+type SensorType = 
+ variant {
+   battery;
+   humidity;
+   movement;
+   temperature;
+ };
+type SensorStatus = 
+ variant {
+   normal;
+   outOfRange;
+ };
+type SensorId = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type PositionId = nat;
+type PositionEntryView = 
+ record {
+   farolId: FarolId;
+   id: PositionId;
+   latitude: float64;
+   longitude: float64;
+   recordedAt: Timestamp;
+ };
+type LinkedDeviceView = 
+ record {
+   id: DeviceId;
+   linkedAt: Timestamp;
+   name: text;
+ };
+type FarolView = 
+ record {
+   id: FarolId;
+   latitude: float64;
+   longitude: float64;
+   name: text;
+   qrCode: text;
+   registeredAt: Timestamp;
+ };
+type FarolId = nat;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DeviceId = nat;
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AlertView = 
+ record {
+   createdAt: Timestamp;
+   id: AlertId;
+   message: text;
+   read: bool;
+   reason: AlertReason;
+   sensorId: SensorId;
+   value: float64;
+ };
+type AlertReason = 
+ variant {
+   aboveMax;
+   belowMin;
+   movementDetected;
+ };
+type AlertId = nat;
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Add a sensor manually or from its own QR code.
+  addSensor: (name: text, qrCode: text, sensorType: SensorType, farolId:
+   opt FarolId, unit: text, minValue: float64, maxValue: float64) ->
+   (SensorView);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  execute: (qJson: text) -> (Result) query;
+  /// Fetch a single alert by id.
+  getAlert: (id: AlertId) -> (opt AlertView) query;
+  /// Static Markdown documentation of the public backend API.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Fetch a single farol by id.
+  getFarol: (id: FarolId) -> (opt FarolView) query;
+  /// Fetch a single sensor by id.
+  getSensor: (id: SensorId) -> (opt SensorView) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Link a mobile phone as a registered device.
+  linkDevice: (name: text) -> (LinkedDeviceView);
+  /// List alerts, newest first.
+  listAlerts: () -> (vec AlertView) query;
+  /// List every linked device.
+  listDevices: () -> (vec LinkedDeviceView) query;
+  /// List every registered farol.
+  listFaroles: () -> (vec FarolView) query;
+  /// Position history for a farol, newest first.
+  listPositions: (farolId: FarolId) -> (vec PositionEntryView) query;
+  /// List sensors with optional type, status and search filters.
+  listSensors: (sensorType: opt SensorType, status: opt SensorStatus, search:
+   opt text) -> (vec SensorView) query;
+  /// Mark an alert as read.
+  markAlertRead: (id: AlertId) -> (opt AlertView);
+  /// Record a sensor reading; alerts are derived automatically from the
+  /// configured min/max range (or movement activity).
+  recordReading: (sensorId: SensorId, value: float64) -> (vec AlertView);
+  /// Register a farol from a QR scan, capturing the device GPS position.
+  registerFarol: (qrCode: text, name: text, latitude: float64, longitude:
+   float64) -> (FarolView);
+  schema: () -> (text) query;
+  /// Unlink a device by id.
+  unlinkDevice: (id: DeviceId) -> (bool);
+  /// Update the configured min/max range of a sensor.
+  updateSensorRange: (id: SensorId, minValue: float64, maxValue: float64) ->
+   (opt SensorView);
+}

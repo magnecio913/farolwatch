@@ -1,0 +1,21 @@
+{
+  "overview": "App en español para monitorear faroles y sus sensores mediante escaneo de QR, con historial de ubicaciones y alertas automáticas dentro de la app.",
+  "features": [
+    "Inicio de sesión con Internet Identity",
+    "Escaneo de QR de faroles y sensores con la cámara",
+    "Registro de ubicación GPS e historial de posiciones",
+    "Monitoreo de sensores de movimiento, humedad, temperatura y batería",
+    "Rangos mínimos y máximos configurables por sensor",
+    "Alertas automáticas dentro de la app con signo de advertencia",
+    "Vinculación de celular para recibir notificaciones"
+  ],
+  "category": "monitoring",
+  "tags": [
+    "monitoreo",
+    "sensores",
+    "qr",
+    "alertas",
+    "iot"
+  ],
+  "last_updated": "2026-09-19T02:18:57.578Z"
+}

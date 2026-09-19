@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "DM Sans";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.75rem;
+
+    /* Civic Field Console — warm paper surfaces, deep signal teal */
+    --background: 0.975 0.006 95;
+    --foreground: 0.19 0.012 200;
+    --card: 0.995 0.003 95;
+    --card-foreground: 0.19 0.012 200;
+    --popover: 0.995 0.003 95;
+    --popover-foreground: 0.19 0.012 200;
+
+    --primary: 0.44 0.085 195;
+    --primary-foreground: 0.98 0.008 195;
+
+    --secondary: 0.945 0.008 95;
+    --secondary-foreground: 0.27 0.014 200;
+    --muted: 0.945 0.008 95;
+    --muted-foreground: 0.5 0.012 200;
+
+    --accent: 0.5 0.09 195;
+    --accent-foreground: 0.98 0.008 195;
+
+    --destructive: 0.53 0.2 27;
+    --destructive-foreground: 0.98 0.005 27;
+
+    --success: 0.52 0.13 152;
+    --success-foreground: 0.98 0.005 152;
+
+    --warning: 0.7 0.15 78;
+    --warning-foreground: 0.2 0.03 78;
+
+    --border: 0.9 0.008 95;
+    --input: 0.9 0.008 95;
+    --ring: 0.44 0.085 195;
+
+    --chart-1: 0.44 0.085 195;
+    --chart-2: 0.7 0.15 78;
+    --chart-3: 0.53 0.2 27;
+    --chart-4: 0.52 0.13 152;
+    --chart-5: 0.55 0.1 260;
+
+    --sidebar: 0.955 0.007 95;
+    --sidebar-foreground: 0.19 0.012 200;
+    --sidebar-primary: 0.44 0.085 195;
+    --sidebar-primary-foreground: 0.98 0.008 195;
+    --sidebar-accent: 0.92 0.012 195;
+    --sidebar-accent-foreground: 0.3 0.05 195;
+    --sidebar-border: 0.9 0.008 95;
+    --sidebar-ring: 0.44 0.085 195;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.44 0.085 195) 0%,
+      oklch(0.38 0.08 210) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.995 0.003 95) 0%,
+      oklch(0.965 0.008 95) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Night watch — tuned dark, not inverted */
+    --background: 0.165 0.014 210;
+    --foreground: 0.93 0.008 95;
+    --card: 0.205 0.016 210;
+    --card-foreground: 0.93 0.008 95;
+    --popover: 0.235 0.018 210;
+    --popover-foreground: 0.93 0.008 95;
+
+    --primary: 0.72 0.1 190;
+    --primary-foreground: 0.165 0.014 210;
+
+    --secondary: 0.245 0.018 210;
+    --secondary-foreground: 0.86 0.008 95;
+    --muted: 0.245 0.018 210;
+    --muted-foreground: 0.6 0.012 200;
+
+    --accent: 0.72 0.1 190;
+    --accent-foreground: 0.165 0.014 210;
+
+    --destructive: 0.66 0.19 27;
+    --destructive-foreground: 0.165 0.014 27;
+
+    --success: 0.7 0.14 152;
+    --success-foreground: 0.165 0.014 152;
+
+    --warning: 0.78 0.15 80;
+    --warning-foreground: 0.165 0.02 80;
+
+    --border: 0.29 0.018 210;
+    --input: 0.29 0.018 210;
+    --ring: 0.72 0.1 190;
+
+    --chart-1: 0.72 0.1 190;
+    --chart-2: 0.78 0.15 80;
+    --chart-3: 0.66 0.19 27;
+    --chart-4: 0.7 0.14 152;
+    --chart-5: 0.68 0.12 260;
+
+    --sidebar: 0.19 0.016 210;
+    --sidebar-foreground: 0.93 0.008 95;
+    --sidebar-primary: 0.72 0.1 190;
+    --sidebar-primary-foreground: 0.165 0.014 210;
+    --sidebar-accent: 0.26 0.03 195;
+    --sidebar-accent-foreground: 0.85 0.05 190;
+    --sidebar-border: 0.29 0.018 210;
+    --sidebar-ring: 0.72 0.1 190;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.72 0.1 190) 0%,
+      oklch(0.6 0.11 205) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.205 0.016 210) 0%,
+      oklch(0.175 0.014 210) 100%
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+
+  .text-data {
+    @apply font-mono tabular-nums tracking-tight;
+  }
+
+  .label-caps {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  .status-stripe {
+    box-shadow: inset 3px 0 0 0 var(--status-color, transparent);
+  }
+}

@@ -1,0 +1,203 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type AlertId__162727888 = Nat;
+type AlertId__266866821 = AlertId__758494499;
+type AlertId__758494499 = Nat;
+type AlertReason__439288328 = {#aboveMax; #belowMin; #movementDetected};
+type AlertReason__745104103 = {#aboveMax; #belowMin; #movementDetected};
+type Alert__105383550 =
+  {
+    createdAt : Timestamp__634641852;
+    id : AlertId__162727888;
+    message : Text;
+    read : Bool;
+    reason : AlertReason__745104103;
+    sensorId : SensorId__790287887;
+    value : Float
+  };
+type Alert__607610635 =
+  {
+    createdAt : Timestamp__689882179;
+    id : AlertId__266866821;
+    message : Text;
+    read : Bool;
+    reason : AlertReason__439288328;
+    sensorId : SensorId__796388088;
+    value : Float
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type DeviceId__690892761 = Nat;
+type DeviceId__730764899 = DeviceId__795919761;
+type DeviceId__795919761 = Nat;
+type FarolId__158131068 = Nat;
+type FarolId__689045261 = FarolId__158131068;
+type FarolId__832712157 = FarolId__158131068;
+type FarolId__942048109 = Nat;
+type Farol__1065278026 =
+  {
+    id : FarolId__942048109;
+    latitude : Float;
+    longitude : Float;
+    name : Text;
+    qrCode : Text;
+    registeredAt : Timestamp__634641852
+  };
+type Farol__854318575 =
+  {
+    id : FarolId__832712157;
+    latitude : Float;
+    longitude : Float;
+    name : Text;
+    qrCode : Text;
+    registeredAt : Timestamp__216001626
+  };
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type LinkedDevice__568914151 =
+  {id : DeviceId__690892761; linkedAt : Timestamp__634641852; name : Text};
+type LinkedDevice__785749131 =
+  {id : DeviceId__730764899; linkedAt : Timestamp__288185016; name : Text};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__868806984 =
+  {
+    accessControlState : AccessControlState__201339279;
+    alerts : List__836382695<Alert__105383550>;
+    devices : Map__230067015<DeviceId__690892761, LinkedDevice__568914151>;
+    faroles : Map__230067015<FarolId__942048109, Farol__1065278026>;
+    positions : List__836382695<PositionEntry__309620808>;
+    sensors : Map__230067015<SensorId__790287887, Sensor__334875304>;
+    state :
+      {
+        var nextAlertId : Nat;
+        var nextDeviceId : Nat;
+        var nextFarolId : Nat;
+        var nextPositionId : Nat;
+        var nextSensorId : Nat
+      }
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type PositionEntry__272458442 =
+  {
+    farolId : FarolId__832712157;
+    id : PositionId__234441703;
+    latitude : Float;
+    longitude : Float;
+    recordedAt : Timestamp__216001626
+  };
+type PositionEntry__309620808 =
+  {
+    farolId : FarolId__942048109;
+    id : PositionId__317393160;
+    latitude : Float;
+    longitude : Float;
+    recordedAt : Timestamp__634641852
+  };
+type PositionId__234441703 = PositionId__406149913;
+type PositionId__317393160 = Nat;
+type PositionId__406149913 = Nat;
+type SensorId__289301620 = SensorId__877477405;
+type SensorId__790287887 = Nat;
+type SensorId__796388088 = SensorId__877477405;
+type SensorId__877477405 = Nat;
+type SensorStatus__142420687 = {#normal; #outOfRange};
+type SensorStatus__24431277 = {#normal; #outOfRange};
+type SensorType__427428944 = {#battery; #humidity; #movement; #temperature};
+type SensorType__572251237 = {#battery; #humidity; #movement; #temperature};
+type Sensor__334875304 =
+  {
+    farolId : ?FarolId__942048109;
+    id : SensorId__790287887;
+    lastReadingAt : ?Timestamp__634641852;
+    lastValue : ?Float;
+    maxValue : Float;
+    minValue : Float;
+    name : Text;
+    qrCode : Text;
+    sensorType : SensorType__427428944;
+    status : SensorStatus__24431277;
+    unit : Text
+  };
+type Sensor__914681620 =
+  {
+    farolId : ?FarolId__689045261;
+    id : SensorId__289301620;
+    lastReadingAt : ?Timestamp__428453774;
+    lastValue : ?Float;
+    maxValue : Float;
+    minValue : Float;
+    name : Text;
+    qrCode : Text;
+    sensorType : SensorType__572251237;
+    status : SensorStatus__142420687;
+    unit : Text
+  };
+type Timestamp__216001626 = Timestamp__301639476;
+type Timestamp__288185016 = Timestamp__301639476;
+type Timestamp__301639476 = Int;
+type Timestamp__428453774 = Timestamp__301639476;
+type Timestamp__634641852 = Int;
+type Timestamp__689882179 = Timestamp__301639476;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260919_120000" : (_old : {}) -> NewActor__868806984
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable alerts :
+    {
+      var blockIndex : Nat__227979830;
+      var blocks : [var [var ?Alert__607610635]];
+      var elementIndex : Nat__227979830
+    };
+  stable devices :
+    {
+      var root : Node__204828119<DeviceId__730764899, LinkedDevice__785749131>;
+      var size : Nat__227979830
+    };
+  stable faroles :
+    {
+      var root : Node__204828119<FarolId__832712157, Farol__854318575>;
+      var size : Nat__227979830
+    };
+  stable positions :
+    {
+      var blockIndex : Nat__227979830;
+      var blocks : [var [var ?PositionEntry__272458442]];
+      var elementIndex : Nat__227979830
+    };
+  stable sensors :
+    {
+      var root : Node__204828119<SensorId__289301620, Sensor__914681620>;
+      var size : Nat__227979830
+    };
+  stable state :
+    {
+      var nextAlertId : Nat;
+      var nextDeviceId : Nat;
+      var nextFarolId : Nat;
+      var nextPositionId : Nat;
+      var nextSensorId : Nat
+    }
+};
